@@ -1,7 +1,8 @@
 package com.sqills.broker;
 
+import com.sqills.binder.MessageBinder;
+import com.sqills.binder.MessageBinderProvider;
 import com.sqills.utils.ExceptionUtils;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,11 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
-import javax.jms.ConnectionFactory;
-import javax.jms.JMSContext;
-import javax.jms.JMSProducer;
 import javax.jms.JMSRuntimeException;
-import javax.jms.Session;
 
 @Named( value = "sqillsMessageBroker" )
 @Singleton
@@ -23,19 +20,15 @@ public class SqillsMessageBroker implements MessageBroker
     private static final Logger logger = LoggerFactory.getLogger(SqillsMessageBroker.class);
 
     @Inject
-    ConnectionFactory connectionFactory;
+    @Named( "artemisBinder" )
+    MessageBinderProvider messageBinderProvider;
 
-    @ConfigProperty( name = "topic.broker" )
-    String topic;
-
-    private JMSContext context;
-    private JMSProducer producer;
+    private MessageBinder messageBinder;
 
     @PostConstruct
     public void init()
     {
-        this.context = connectionFactory.createContext(Session.AUTO_ACKNOWLEDGE);
-        this.producer = context.createProducer();
+        this.messageBinder = this.messageBinderProvider.bindMessageToOutput();
     }
 
     @Override
@@ -43,8 +36,7 @@ public class SqillsMessageBroker implements MessageBroker
     {
         try
         {
-
-            producer.send(context.createQueue(topic), message);
+            this.messageBinder.sendMessage(message);
         }
         catch( JMSRuntimeException ex )
         {
@@ -54,9 +46,9 @@ public class SqillsMessageBroker implements MessageBroker
     }
 
     @Override
-    public void receiveMessage( final String message )
+    public String receiveMessage( String message )
     {
-        throw new UnsupportedOperationException("This operation is not  supported yet");
+        // just create input binder , and bind here
+        throw new UnsupportedOperationException("Currently unsupported");
     }
-
 }

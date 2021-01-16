@@ -4,5 +4,5 @@ public interface MessageBroker
 {
     void sendMessage( final String message );
 
-    void receiveMessage( final String message );
+    String  receiveMessage( final String message );
 }
