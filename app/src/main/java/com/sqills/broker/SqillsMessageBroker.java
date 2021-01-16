@@ -12,6 +12,9 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.jms.JMSRuntimeException;
 
+/**
+ * Message Broker
+ */
 @Named( value = "sqillsMessageBroker" )
 @Singleton
 public class SqillsMessageBroker implements MessageBroker

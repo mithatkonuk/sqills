@@ -8,6 +8,9 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
+/**
+ * General Business Response
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

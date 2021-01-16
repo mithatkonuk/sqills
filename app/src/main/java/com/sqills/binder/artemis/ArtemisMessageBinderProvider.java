@@ -9,7 +9,9 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 /**
- * We can configure binder here about artemis
+ * provide configure binder here about artemis , or initiate another a new instance of binder or customize it
+ *
+ * @author mithat.konuk
  */
 @Named( value = "artemisBinder" )
 @Singleton

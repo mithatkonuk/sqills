@@ -7,6 +7,10 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
+/**
+ * General Error Response
+ *  code : which can be define as special for business , NOT HTTP
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

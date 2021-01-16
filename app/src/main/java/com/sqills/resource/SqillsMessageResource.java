@@ -11,6 +11,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+/**
+ * Provide endpoint for sending message to external systems
+ */
 @Path( "/sqills" )
 public class SqillsMessageResource
 {
