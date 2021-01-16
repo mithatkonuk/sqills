@@ -1,8 +1,6 @@
 # consumer project
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
-
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+This project simple consumer to get message from external binder.
 
 ## Running the application in dev mode
 
@@ -11,21 +9,26 @@ You can run your application in dev mode that enables live coding using:
 ./mvnw compile quarkus:dev
 ```
 
-## Packaging and running the application
+## Packaging and running the application (INDIVIDUAL)
 
 The application can be packaged using:
 ```shell script
 ./mvnw package
 ```
-It produces the `consumer-1.0.0-SNAPSHOT-runner.jar` file in the `/target` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/lib` directory.
 
-If you want to build an _über-jar_, execute the following command:
-```shell script
-./mvnw package -Dquarkus.package.type=uber-jar
+The application is now runnable using `java -jar target/consumer-1.0.0-SNAPSHOT-runner.jar`. But some properties needs to be provided as system env
+
+```
+quarkus.artemis.url=artemis_url
+quarkus.artemis.username=artemis_username
+quarkus.artemis.password=artemis_pass
+
+
+topic.consumer=topic
+quarkus.http.port=8081
+
 ```
 
-The application is now runnable using `java -jar target/consumer-1.0.0-SNAPSHOT-runner.jar`.
 
 ## Creating a native executable
 
@@ -43,8 +46,10 @@ You can then execute your native executable with: `./target/consumer-1.0.0-SNAPS
 
 If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.html.
 
-# RESTEasy JAX-RS
 
-<p>A Hello World RESTEasy resource</p>
+## Usage
 
-Guide: https://quarkus.io/guides/rest-json
+`./target/consumer-1.0.0-SNAPSHOT-runner` or `java -jar target/consumer-1.0.0-SNAPSHOT-runner.jar`
+
+## Recommendation
+Please use docker-compose on the parent directory to all setup will be auto initiate.
