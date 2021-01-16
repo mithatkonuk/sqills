@@ -1,12 +1,11 @@
 package com.sqills.resource;
 
 import com.sqills.broker.MessageBroker;
-import com.sqills.consumer.MessageConsumer;
+import com.sqills.resource.response.SqillsResponse;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -20,28 +19,19 @@ public class SqillsMessageResource
     @Named( "sqillsMessageBroker" )
     MessageBroker sqillsMessageBroker;
 
-    @Inject
-    @Named( "simpleConsumer" )
-    MessageConsumer simpleConsumer;
-
     /**
      * Message retrieved from external via HTTP request
      *
      * @param message string
      */
     @POST
-    @Path( "message" )
+    @Path( "/broker/message" )
     @Consumes( MediaType.TEXT_PLAIN )
-    public void externalMessage( String message )
+    @Produces( MediaType.APPLICATION_JSON )
+    public SqillsResponse receiveMessage( String message )
     {
         this.sqillsMessageBroker.sendMessage(message);
+        return new SqillsResponse(true);
     }
 
-    @GET
-    @Path( "receive" )
-    @Produces( MediaType.TEXT_PLAIN )
-    public void receiveMessage()
-    {
-        this.simpleConsumer.receiveMessage();
-    }
 }

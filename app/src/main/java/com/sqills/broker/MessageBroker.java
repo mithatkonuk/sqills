@@ -2,7 +2,7 @@ package com.sqills.broker;
 
 public interface MessageBroker
 {
-    void sendMessage(String message);
+    void sendMessage( final String message );
 
-    void receiveMessage( String message );
+    void receiveMessage( final String message );
 }
