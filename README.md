@@ -106,16 +106,14 @@ services:
       ARTEMIS_PASSWORD: sqills
 ```
 
+### Run Application
 
-### Run Application 
+Choose consumer ID from list of applications to monitor logs, after that open another terminal to
+make curl as seen below.
+
 ```shell
-    
-  run docker ps 
+  docker ps 
+  docker logs -f CONSUMER_ID
+  curl --header "Content-Type: text/plain" --request POST --data 'hello world' http://localhost:8080/sqills/broker/message
   
-  ![plot](/Users/mithat.konuk/sqills_project/sqills/screenshots/list_of_app.png "Applications")
-  
-  choose consumer to monitor logs
-  
-   ![plot](/Users/mithat.konuk/sqills_project/sqills/screenshots/list_of_app.png "Applications")
-
 ```
