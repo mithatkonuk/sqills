@@ -1,6 +1,7 @@
 package com.sqills.broker;
 
 import com.sqills.utils.ExceptionUtils;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,8 +25,8 @@ public class SqillsMessageBroker implements MessageBroker
     @Inject
     ConnectionFactory connectionFactory;
 
-    //@ConfigProperty( name = "topic" )
-    String topic = "topic";
+    @ConfigProperty( name = "topic.broker" )
+    String topic;
 
     private JMSContext context;
     private JMSProducer producer;

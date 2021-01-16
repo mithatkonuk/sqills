@@ -28,7 +28,7 @@ public class MessageConsumer implements MessageReceiver
     @Inject
     ConnectionFactory connectionFactory;
 
-    @ConfigProperty( name = "sqills.consumer.messaging.topic" )
+    @ConfigProperty( name = "topic.consumer" )
     String topic;
 
     private JMSContext context;
@@ -54,7 +54,7 @@ public class MessageConsumer implements MessageReceiver
                 return;
             String messageBody = message.getBody(String.class);
 
-            logger.info("Received message from broker: {} {}", messageBody, Instant.now());
+            logger.info("Received message from broker: {} time : {}", messageBody, Instant.now());
 
         }
         catch( JMSException e )

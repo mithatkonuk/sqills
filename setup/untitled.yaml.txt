@@ -18,11 +18,12 @@ services:
       MESSAGING_URL: tcp://artemis:61616
       MESSAGING_USER: sqills # we can use secrets to handle this user and password
       MESSAGING_PASS: sqills # we can use secret etc
-      MESSAGING_TOPIC: sqillsTopic
+      MESSAGING_TOPIC: topic
       SERVER_PORT: 8080
       JAVA_OPTIONS: -Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager
     depends_on:
       - artemis
+
 
 
   consumer:
@@ -36,8 +37,8 @@ services:
       MESSAGING_URL: tcp://artemis:61616
       MESSAGING_USER: sqills # we can use secrets to handle this user and password
       MESSAGING_PASS: sqills # we can use secret etc
-      MESSAGING_TOPIC: sqillsTopic
-      MESSAGING_LISTENER_TIMEOUT: 2s # consumer will check every 3  second
+      MESSAGING_TOPIC: topic
+      LISTENER_TIMEOUT: 3s # consumer will check every 3  second
       SERVER_PORT: 8081
       JAVA_OPTIONS: -Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager
     depends_on:
