@@ -34,7 +34,6 @@
     </dependencyManagement>
 
 
-
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -72,7 +71,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
 
 
     <build>

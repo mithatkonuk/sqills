@@ -1,8 +1,6 @@
-package com.sqills.consumer.binder.artemis;
+package com.sqills.simpleConsumer;
 
-import com.sqills.consumer.binder.MessageInputBinder;
-import com.sqills.consumer.utils.ExceptionUtils;
-import io.quarkus.scheduler.Scheduled;
+import com.sqills.utils.ExceptionUtils;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,21 +16,21 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.Session;
 import java.time.Instant;
-import java.util.concurrent.TimeUnit;
 
 /**
- * forward message to another binder or external system
+ * We can also make consumer ,and broker as package so any project can use
+ * this demostration is not considering
  */
-@Named( value = "artemisInputBinder" )
 @Singleton
-public class ArtemisInputBinder implements MessageInputBinder
+@Named( value = "simpleMessageConsumer" )
+public class SimpleMessageConsumer
 {
-    private static final Logger logger = LoggerFactory.getLogger(ArtemisInputBinder.class);
+    private static final Logger logger = LoggerFactory.getLogger(SimpleMessageConsumer.class);
 
     @Inject
     ConnectionFactory connectionFactory;
 
-    @ConfigProperty( name = "topic.consumer" )
+    @ConfigProperty( name = "topic.broker" )
     String topic;
 
     private JMSContext context;
@@ -45,27 +43,23 @@ public class ArtemisInputBinder implements MessageInputBinder
         this.consumer = context.createConsumer(context.createQueue(topic));
     }
 
-    @Scheduled( every = "2s",
-                delayUnit = TimeUnit.SECONDS,
-                delay = 5 )
-    @Override
-    public void receiveMessage()
+    public String receiveMessage()
     {
         try
         {
             Message message = consumer.receive();
             if(message == null)
-                return;
+                return null;
             String messageBody = message.getBody(String.class);
 
             logger.info("Received message from broker: {} time : {}", messageBody, Instant.now());
-
+            return messageBody;
         }
         catch( JMSException e )
         {
             logger.error(ExceptionUtils.stackTrace(e));
         }
 
+        return null;
     }
-
 }
