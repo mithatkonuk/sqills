@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  artemis:
+    build:
+      context: artemis
+      dockerfile: Dockerfile
+    ports:
+      - "8161:8161"
+      - "61616:61616"
+      - "5672:5672"
+    environment:
+      ARTEMIS_USERNAME: sqills
+      ARTEMIS_PASSWORD: sqills
