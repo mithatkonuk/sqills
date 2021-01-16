@@ -58,6 +58,10 @@ make curl as seen below.
   
 ```
 
+### Docker compose file
+
+Docker Compose file located top of the project .
+
 ### Screenshots
 
 List of Applications
