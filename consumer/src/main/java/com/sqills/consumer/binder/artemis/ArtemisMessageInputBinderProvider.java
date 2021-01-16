@@ -9,7 +9,8 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 /**
- * We can configure binder here about artemis
+ * binder provider for artemis , input or output binder
+ * provide  customize or initiate another binder via configuration here
  */
 @Named( value = "artemisBinder" )
 @Singleton
