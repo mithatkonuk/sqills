@@ -2,6 +2,21 @@
 
 This project simple handle forwarding and also receive message to external systems.
 
+
+### Screenshots
+
+List of Applications
+
+![alt text](screenshots/list_of_app.png)
+
+Monitoring Application
+
+![alt_text](screenshots/monitoring.png)
+
+![alt_text](screenshots/monitoring_v2.png)
+
+
+
 ### Setup
 
 Simple Message Broker Application has small script to handle each of modules process and
@@ -119,16 +134,4 @@ make curl as seen below.
   curl --header "Content-Type: text/plain" --request POST --data 'hello world' http://localhost:8080/sqills/broker/message
   
 ```
-
-### Screenshots
-
-List of Applications
-
-![alt text](screenshots/list_of_app.png)
-
-Monitoring Application
-
-![alt_text](screenshots/monitoring.png)
-
-![alt_text](screenshots/monitoring_v2.png)
 
