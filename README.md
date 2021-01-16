@@ -113,15 +113,16 @@ make curl as seen below.
 
 ```shell
   docker ps 
+  
+  ![GitHub Logo](screenshots/list_of_app.png)
   docker logs -f CONSUMER_ID
   curl --header "Content-Type: text/plain" --request POST --data 'hello world' http://localhost:8080/sqills/broker/message
   
 ```
 
+### Screenshots
 
-### Screenshots 
-
-List of Applications 
+List of Applications
 
 ![alt text](screenshots/list_of_app.png)
 
@@ -129,6 +130,5 @@ Monitoring Application
 
 ![alt_text](screenshots/monitoring.png)
 
-
-
 ![alt_text](screenshots/monitoring_v2.png)
+
