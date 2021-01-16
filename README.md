@@ -61,6 +61,68 @@ make curl as seen below.
 ### Docker compose file
 
 Docker Compose file located top of the project .
+```dockerfile
+
+#
+# Simple messaging application
+# maintainer mithat konuk <mithatkonuk@gmail.com>
+#
+
+version: '3'
+
+services:
+  app:
+    build:
+      context: app
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    restart: on-failure
+    environment:
+      MESSAGING_URL: tcp://artemis:61616
+      MESSAGING_USER: sqills # we can use secrets to handle this user and password
+      MESSAGING_PASS: sqills # we can use secret etc
+      MESSAGING_TOPIC: sqillsTopic
+      SERVER_PORT: 8080
+      JAVA_OPTIONS: -Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager
+    depends_on:
+      - artemis
+
+
+  consumer:
+    build:
+      context: consumer
+      dockerfile: Dockerfile
+    ports:
+        - "8081:8081" # when Server port is changed so need to change also here
+    restart: on-failure
+    environment:
+      MESSAGING_URL: tcp://artemis:61616
+      MESSAGING_USER: sqills # we can use secrets to handle this user and password
+      MESSAGING_PASS: sqills # we can use secret etc
+      MESSAGING_TOPIC: sqillsTopic
+      MESSAGING_LISTENER_TIMEOUT: 2s # consumer will check every 3  second
+      SERVER_PORT: 8081
+      JAVA_OPTIONS: -Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager
+    depends_on:
+        - artemis    
+
+  artemis:
+    build:
+      context: artemis
+      dockerfile: Dockerfile
+    ports:
+      - "8161:8161"
+      - "61616:61616"
+      - "5672:5672"
+    environment:
+      ARTEMIS_USERNAME: sqills
+      ARTEMIS_PASSWORD: sqills # we could use secrets too
+
+
+
+
+```
 
 ### Screenshots
 
